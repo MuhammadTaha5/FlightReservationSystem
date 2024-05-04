@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Passenger
 {
     private String name;
@@ -9,6 +11,9 @@ public class Passenger
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
+    }
+
+    public Passenger() {
     }
 
     public String getName() {
@@ -47,4 +52,14 @@ public class Passenger
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return Objects.equals(name, passenger.name) && Objects.equals(phoneNumber, passenger.phoneNumber) && Objects.equals(email, passenger.email);
+    }
+
+
 }

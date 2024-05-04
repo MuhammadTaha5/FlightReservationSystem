@@ -192,6 +192,50 @@ public class Flight
         }
         return result;
     }
+    public ArrayList<Passenger> displaySeats(Passenger pass)
+    {
+        ArrayList<Passenger>seats = new ArrayList<>();
+        System.out.print("Seats : ");
+        for (int i = 0; i < passengers.length; i++) {
+            if (pass.equals(passengers[i]))
+            {
+                System.out.printf("%-3s", i+1);
+                seats.add(pass);
+
+            }
+        }
+        return seats;
+    }
+    public void cancelSeat(Passenger pass)
+    {
+        String ch;
+        int temp;
+        ArrayList <Passenger> seats = displaySeats(pass);
+        if (seats.size()>1)
+        {
+            System.out.print("\nDo You Want to cancel All Seats: ");
+            ch = input.next();
+            ch = ch.toUpperCase();
+            if (ch.equals("ALL")) {
+                for(int i=0; i< passengers.length; i++)
+                {
+                    if (pass.equals(passengers[i]))
+                    {
+                        passengers[i] = null;
+                        seatsAvailable[i] = true;
+                    }
+                }
+                System.out.println("All Seats Cancelled");
+            }
+            else {
+                temp = input.nextInt();
+                passengers[temp-1]= null;
+                System.out.println("Seats cancelled");
+            }
+        }
+
+
+    }
 
 
 //    @Override

@@ -22,6 +22,6 @@ public class test {
         ArrayList <Flight> flightsForSelection = res.searchBySourceToDestination(Cities.ABU_DHABI, Cities.KARACHI);
         r1.getFlight().bookSeat(flightsForSelection);
         System.out.println(r1.getFlight().passengers[0]+" "+ r1.getFlight().passengers[1]);
-
+        r1.getFlight().cancelSeat(new Passenger("Taha", "0309", "taha.saeed"));
     }
 }
