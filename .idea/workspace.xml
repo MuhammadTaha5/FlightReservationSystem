@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f0c0aa59-8e0b-47f0-ac7f-51cb2eec9930" name="Changes" comment="Second Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReservationManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReservationManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +174,39 @@
       <option name="project" value="LOCAL" />
       <updated>1714823649428</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Second Commit">
+      <option name="closed" value="true" />
+      <created>1714938163580</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1714938163580</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Second Commit">
+      <option name="closed" value="true" />
+      <created>1714938173975</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1714938173975</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Second Commit">
+      <option name="closed" value="true" />
+      <created>1714938222275</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1714938222275</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Second Commit">
+      <option name="closed" value="true" />
+      <created>1714938237225</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1714938237225</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,6 +222,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
+    <MESSAGE value="Third Commit" />
     <MESSAGE value="Second Commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Second Commit" />
   </component>

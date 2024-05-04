@@ -30,14 +30,14 @@ public class test {
             displayAdminMenu();
             System.out.println("Enter Choice: ");
             int ch = input.nextInt();
-            while (choice!=4) {
+            while (ch!=4) {
                 switch (ch) {
                     case 1: {
                         System.out.print("Enter Flight Number: ");
                         flightNumber = input.next();
-                        System.out.print("Enter Departure Cities: ");
+                        System.out.print("Enter Departure City: ");
                         source = input.next();
-                        System.out.print("Enter Arrival Cities: ");
+                        System.out.print("Enter Arrival City: ");
                         destination = input.next();
                         System.out.print("Enter Departure Date");
                         depDate = input.nextInt();
@@ -56,7 +56,7 @@ public class test {
                         totalSeats = input.nextInt();
                         System.out.print("Enter Economy Fare: ");
                         economyFare = input.nextDouble();
-                        System.out.print("Enter business: ");
+                        System.out.print("Enter business Fare: ");
                         businessFare = input.nextDouble();
 
                         res.addFlights(new Flight(flightNumber, selectCity(source), selectCity(destination), LocalDate.of(2024, selectMonth(depMonth), depDate), LocalTime.of(depTime / 100, depTime % 100, 0), LocalDate.of(2024, selectMonth(arrMonth), arrDate), LocalTime.of(arrTime / 100, arrTime % 100, 0), totalSeats, economyFare, businessFare));
@@ -81,13 +81,13 @@ public class test {
                     }
 
                 }
-                Reservation.setFlights(ReservationManagement.getFlights());
-                System.out.println("Enter Choice: ");
-                ch = input.nextInt();
+
+
             }
         }
         else if (choice == 2)
         {
+            Reservation.setFlights(ReservationManagement.getFlights());
             displayPassengerMenu();
             System.out.print("Enter Choice: ");
             int ch = input.nextInt();
@@ -97,7 +97,7 @@ public class test {
                 {
                     System.out.print("Enter Departure City: ");
                     source = input.next();
-                    System.out.println("Enter Destination City: ");
+                    System.out.print("Enter Destination City: ");
                     destination = input.next();
                     res.searchBySourceToDestination(selectCity(source), selectCity(destination));
                     break;
@@ -123,8 +123,10 @@ public class test {
                     break;
                 }
 
+
             }
         }
+
 
     }
     public static void displayAdminMenu()

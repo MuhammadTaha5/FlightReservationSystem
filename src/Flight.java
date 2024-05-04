@@ -144,7 +144,6 @@ public class Flight
     {
         boolean result = false;
         System.out.println("Enter Passenger Details");
-        String temp = input.nextLine();
         System.out.print("Enter Name: ");
         String name = input.nextLine();
         System.out.print("Enter Phone Number: ");
@@ -184,20 +183,7 @@ public class Flight
 
         return result;
     }
-    public ArrayList<Passenger> displaySeats(Passenger pass)
-    {
-        ArrayList<Passenger>seats = new ArrayList<>();
-        System.out.print("Seats : ");
-        for (int i = 0; i < passengers.length; i++) {
-            if (pass.getEmail().equals(passengers[i].getEmail()))
-            {
-                System.out.printf("%-3s", i+1);
-                seats.add(passengers[i]);
 
-            }
-        }
-        return seats;
-    }
     public void cancelSeat()
     {
         String name, phNumber = null, email;
