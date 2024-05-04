@@ -16,6 +16,7 @@ public class test {
         Scanner input = new Scanner(System.in);
         ArrayList<Flight> flights = new ArrayList<>();
         ReservationManagement res = new ReservationManagement();
+        //Sample Flights for testing
         Flight f1 = new Flight("EK-1322", Cities.DUBAI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
         Flight f2 = new Flight("EK-132", Cities.ABUDHABI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
         Flight f3 = new Flight("EK-1333", Cities.ABUDHABI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
@@ -24,7 +25,7 @@ public class test {
         flights.add(f2);
         flights.add(f3);
         res.addFlights(flights);
-        System.out.print("Enter 1 for Administration Or 2 for Passenger: ");
+        System.out.print("Enter 1 for Administration: ");
         choice = input.nextInt();
         if (choice==1) {
             displayAdminMenu();
@@ -32,6 +33,11 @@ public class test {
             int ch = input.nextInt();
             while (ch!=4) {
                 switch (ch) {
+                    case 0:
+                    {
+                        ReservationManagement.getFlights();
+                        break;
+                    }
                     case 1: {
                         System.out.print("Enter Flight Number: ");
                         flightNumber = input.next();
@@ -39,14 +45,14 @@ public class test {
                         source = input.next();
                         System.out.print("Enter Arrival City: ");
                         destination = input.next();
-                        System.out.print("Enter Departure Date");
+                        System.out.print("Enter Departure Date: ");
                         depDate = input.nextInt();
                         System.out.print("Enter Departure Month: ");
                         depMonth = input.next();
-                        System.out.print("Enter Arrival Date");
-                        arrDate = input.nextInt();
                         System.out.print("Enter Departure Time(HH:Min): ");
                         depTime = input.nextInt();
+                        System.out.print("Enter Arrival Date");
+                        arrDate = input.nextInt();
                         System.out.print("Enter Arrival Month: ");
                         arrMonth = input.next();
                         System.out.print("Enter Arrival Time: ");
@@ -81,49 +87,69 @@ public class test {
                     }
 
                 }
-
+                displayAdminMenu();
+                System.out.println("Enter Choice: ");
+                ch = input.nextInt();
 
             }
         }
-        else if (choice == 2)
+        System.out.println("Do you want to login as user");
+        System.out.print("Press 2: ");
+        choice = input.nextInt();
+        if (choice == 2)
         {
             Reservation.setFlights(ReservationManagement.getFlights());
             displayPassengerMenu();
             System.out.print("Enter Choice: ");
             int ch = input.nextInt();
-            switch (ch)
-            {
-                case 1:
-                {
-                    System.out.print("Enter Departure City: ");
-                    source = input.next();
-                    System.out.print("Enter Destination City: ");
-                    destination = input.next();
-                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
-                    break;
-                }
-                case 2:
-                {
-                    System.out.print("Enter Departure City: ");
-                    source = input.next();
-                    System.out.println("Enter Destination City: ");
-                    destination = input.next();
-                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
-                    Reservation.Features().bookSeat();
-                    break;
-                }
-                case 3:
-                {
-                    System.out.print("Enter Departure City: ");
-                    source = input.next();
-                    System.out.println("Enter Destination City: ");
-                    destination = input.next();
-                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
-                    Reservation.Features().cancelSeat();
-                    break;
-                }
+            while (ch != 5) {
+                switch (ch) {
+                    case 1: {
+                        System.out.print("Enter Departure City: ");
+                        source = input.next();
+                        System.out.print("Enter Destination City: ");
+                        destination = input.next();
+                        res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                        break;
+                    }
+                    case 2: {
+                        System.out.print("Enter Departure City: ");
+                        source = input.next();
+                        System.out.print("Enter Destination City: ");
+                        destination = input.next();
+                        res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                        Reservation.Features().bookSeat();
+                        break;
+                    }
+                    case 3: {
+                        System.out.print("Enter Departure City: ");
+                        source = input.next();
+                        System.out.print("Enter Destination City: ");
+                        destination = input.next();
+                        res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                        Reservation.Features().cancelSeat();
+                        break;
+                    }
+                    case 4: {
+                        System.out.print("Enter Departure City: ");
+                        source = input.next();
+                        System.out.print("Enter Destination City: ");
+                        destination = input.next();
+                        System.out.print("Enter Number of Seats: ");
+                        int numSeats = input.nextInt();
+                        res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                        if (Reservation.Features().checkSeatAvailable(numSeats)) {
+                            System.out.println("Seats are Available");
+                        } else {
+                            System.out.println("Seats not Available");
+                        }
+                        break;
+                    }
 
-
+                }
+                displayPassengerMenu();
+                System.out.print("Enter Choice: ");
+                ch = input.nextInt();
             }
         }
 
@@ -142,6 +168,8 @@ public class test {
         System.out.println("Enter 1 to Search Flight");
         System.out.println("Enter 2 to Book seat");
         System.out.println("Enter 3 to Cancel seat");
+        System.out.println("Enter 4 to Check seat Availability");
+        System.out.println("Enter 5 to Exit");
     }
     public static Cities selectCity(String city)
     {

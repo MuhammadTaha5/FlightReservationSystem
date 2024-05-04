@@ -1,6 +1,4 @@
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -140,9 +138,9 @@ public class Flight
         }
         return result;
     }
-    public boolean bookSeat()
+    public void bookSeat()
     {
-        boolean result = false;
+
         System.out.println("Enter Passenger Details");
         System.out.print("Enter Name: ");
         String name = input.nextLine();
@@ -170,7 +168,6 @@ public class Flight
                         seatsAvailable[j]=true;
                         seats++;
                         passengers[j] = new Passenger(name, ph, email);
-                        result = true;
                         System.out.println("Seats Booked.");
                     }
                 } else if (seats>numberOfSeats)
@@ -181,14 +178,13 @@ public class Flight
             }
         }
 
-        return result;
     }
 
     public void cancelSeat()
     {
         String name, phNumber = null, email;
         System.out.print("Enter Name: ");
-        name = input.nextLine();
+        name = input.next();
         System.out.print("Email: ");
         email = input.next();
         Passenger pass = new Passenger(name, phNumber, email);

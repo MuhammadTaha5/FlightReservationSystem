@@ -8,6 +8,14 @@ public class ReservationManagement
     Scanner input = new Scanner(System.in);
 
     public static ArrayList<Flight> getFlights() {
+        System.out.println("Flights");
+        System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%n", "  Flight Number", "Departure", "Destination", "Departure date", "Departure time", "Arrival Time");
+        for (int i = 0; i < flights.size(); i++) {
+            System.out.print(i+1+" ");
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%n", flights.get(i).getFlightNumber(), flights.get(i).getSource(), flights.get(i).getDestination(), flights.get(i).getDepartureDate(), flights.get(i).getDepartureTime(), flights.get(i).getArrivalTime());
+
+        }
+
         return flights;
     }
 
