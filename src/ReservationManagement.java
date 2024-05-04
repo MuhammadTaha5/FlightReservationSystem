@@ -2,9 +2,9 @@ import java.util.*;
 
 public class ReservationManagement
 {
-    Reservation reservation;
 
-    public static ArrayList<Flight>flights = new ArrayList<>();
+
+    private static ArrayList<Flight>flights = new ArrayList<>();
     Scanner input = new Scanner(System.in);
 
     public static ArrayList<Flight> getFlights() {
@@ -12,7 +12,11 @@ public class ReservationManagement
     }
 
 
-    public void addFlight(Flight flight)
+    public void addFlights(ArrayList<Flight> flights)
+    {
+        this.flights = flights;
+    }
+    public void addFlights(Flight flight)
     {
         flights.add(flight);
     }
@@ -23,13 +27,14 @@ public class ReservationManagement
         int fl = 0;
         System.out.println("Flights");
         ArrayList <Flight> flightByPass = new ArrayList<>();
+        System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%n", "  Flight Number", "Departure", "Destination", "Departure date", "Departure time", "Arrival Time");
         for (int i = 0; i < flights.size(); i++) {
 
             if(sourceCity == flights.get(i).getSource() && destinationCity.equals(flights.get(i).getDestination()))
             {
                 fl++;
                 System.out.print(fl+" ");
-                System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%n", flights.get(i).getSource(), flights.get(i).getDestination(), flights.get(i).getDepartureDate(), flights.get(i).getDepartureTime(), flights.get(i).getArrivalDate(), flights.get(i).getArrivalTime());
+                System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%n", flights.get(i).getFlightNumber(), flights.get(i).getSource(), flights.get(i).getDestination(), flights.get(i).getDepartureDate(), flights.get(i).getDepartureTime(), flights.get(i).getArrivalTime());
                 flightByPass.add(flights.get(i));
             }
 
@@ -58,14 +63,15 @@ public class ReservationManagement
             }
         }
 
+
     }
-    public void bookSeat(Cities form, Cities to, int numSeats)
-    {
-        searchBySourceToDestination(form, to);
-        System.out.print("Select Flight: ");
-        int ch = input.nextInt();
-//        reservation.setFlight();
-    }
+//    public void bookSeat(Cities form, Cities to, int numSeats)
+//    {
+//        searchBySourceToDestination(form, to);
+//        System.out.print("Select Flight: ");
+//        int ch = input.nextInt();
+////        reservation.setFlight();
+//    }
 }
 
 

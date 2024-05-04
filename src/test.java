@@ -1,27 +1,168 @@
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class test {
     public static void main(String[] args) {
+        int choice, depDate, arrDate, depTime, arrTime;
+        double economyFare, businessFare;
+        String flightNumber, depMonth, arrMonth;
 
+        String source, destination;
+
+        int totalSeats;
         Scanner input = new Scanner(System.in);
-        Flight f1 = new Flight("EK-1322", Cities.DUBAI, Cities.KARACHI, new Date(2024, 06, 06), new Time(20, 00, 00), new Date(2024, 06, 06), new Time(24, 00, 00), 26, 45000, 90000 );
-        Flight f2 = new Flight("EK-132", Cities.ABU_DHABI, Cities.KARACHI, new Date(2024, 06, 06), new Time(20, 00, 00), new Date(2024, 06, 06), new Time(24, 00, 00), 26, 45000, 90000 );
-        Flight f3 = new Flight("EK-1333", Cities.ABU_DHABI, Cities.KARACHI, new Date(2024, 06, 06), new Time(20, 00, 00), new Date(2024, 06, 06), new Time(14, 00, 00), 26, 45000, 90000 );
+        ArrayList<Flight> flights = new ArrayList<>();
         ReservationManagement res = new ReservationManagement();
-        res.addFlight(f1);
-        res.addFlight(f2);
-        res.addFlight(f3);
+        Flight f1 = new Flight("EK-1322", Cities.DUBAI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
+        Flight f2 = new Flight("EK-132", Cities.ABUDHABI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
+        Flight f3 = new Flight("EK-1333", Cities.ABUDHABI, Cities.KARACHI, LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(20, 0, 0), LocalDate.of(2024, Month.APRIL, 6), LocalTime.of(22, 30, 0), 26, 45000, 90000 );
 
-        ArrayList<Reservation>reservations = new ArrayList<>();
-        Reservation r1 = new Reservation(f1);
-        Reservation r2 = new Reservation(f2);
-        Reservation r3 = new Reservation(f3);
-        ArrayList <Flight> flightsForSelection = res.searchBySourceToDestination(Cities.ABU_DHABI, Cities.KARACHI);
-        r1.getFlight().bookSeat(flightsForSelection);
-        System.out.println(r1.getFlight().passengers[0]+" "+ r1.getFlight().passengers[1]);
-        r1.getFlight().cancelSeat(new Passenger("Taha", "0309", "taha.saeed"));
+        flights.add(f1);
+        flights.add(f2);
+        flights.add(f3);
+        res.addFlights(flights);
+        System.out.print("Enter 1 for Administration Or 2 for Passenger: ");
+        choice = input.nextInt();
+        if (choice==1) {
+            displayAdminMenu();
+            System.out.println("Enter Choice: ");
+            int ch = input.nextInt();
+            while (choice!=4) {
+                switch (ch) {
+                    case 1: {
+                        System.out.print("Enter Flight Number: ");
+                        flightNumber = input.next();
+                        System.out.print("Enter Departure Cities: ");
+                        source = input.next();
+                        System.out.print("Enter Arrival Cities: ");
+                        destination = input.next();
+                        System.out.print("Enter Departure Date");
+                        depDate = input.nextInt();
+                        System.out.print("Enter Departure Month: ");
+                        depMonth = input.next();
+                        System.out.print("Enter Arrival Date");
+                        arrDate = input.nextInt();
+                        System.out.print("Enter Departure Time(HH:Min): ");
+                        depTime = input.nextInt();
+                        System.out.print("Enter Arrival Month: ");
+                        arrMonth = input.next();
+                        System.out.print("Enter Arrival Time: ");
+                        arrTime = input.nextInt();
+
+                        System.out.print("Enter Number of Seats: ");
+                        totalSeats = input.nextInt();
+                        System.out.print("Enter Economy Fare: ");
+                        economyFare = input.nextDouble();
+                        System.out.print("Enter business: ");
+                        businessFare = input.nextDouble();
+
+                        res.addFlights(new Flight(flightNumber, selectCity(source), selectCity(destination), LocalDate.of(2024, selectMonth(depMonth), depDate), LocalTime.of(depTime / 100, depTime % 100, 0), LocalDate.of(2024, selectMonth(arrMonth), arrDate), LocalTime.of(arrTime / 100, arrTime % 100, 0), totalSeats, economyFare, businessFare));
+                        //Reservation.addFlight(new Flight(flightNumber, selectCity(source), selectCity(destination), LocalDate.of(2024, selectMonth(depMonth), depDate), LocalTime.of(depTime / 100, depTime % 100, 0), LocalDate.of(2024, selectMonth(arrMonth), arrDate), LocalTime.of(arrTime / 100, arrTime % 100, 0), totalSeats, economyFare, businessFare));
+
+                        break;
+                    }
+                    case 2: {
+                        System.out.println("Which Flight You want To Cancel: ");
+                        System.out.print("Enter Flight Number: ");
+                        flightNumber = input.next();
+                        res.cancelFlight(flightNumber);
+                        break;
+                    }
+                    case 3: {
+                        System.out.print("Enter Departure City: ");
+                        source = input.next();
+                        System.out.print("Enter Arrival City: ");
+                        destination = input.next();
+                        res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                        break;
+                    }
+
+                }
+                Reservation.setFlights(ReservationManagement.getFlights());
+                System.out.println("Enter Choice: ");
+                ch = input.nextInt();
+            }
+        }
+        else if (choice == 2)
+        {
+            displayPassengerMenu();
+            System.out.print("Enter Choice: ");
+            int ch = input.nextInt();
+            switch (ch)
+            {
+                case 1:
+                {
+                    System.out.print("Enter Departure City: ");
+                    source = input.next();
+                    System.out.println("Enter Destination City: ");
+                    destination = input.next();
+                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                    break;
+                }
+                case 2:
+                {
+                    System.out.print("Enter Departure City: ");
+                    source = input.next();
+                    System.out.println("Enter Destination City: ");
+                    destination = input.next();
+                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                    Reservation.Features().bookSeat();
+                    break;
+                }
+                case 3:
+                {
+                    System.out.print("Enter Departure City: ");
+                    source = input.next();
+                    System.out.println("Enter Destination City: ");
+                    destination = input.next();
+                    res.searchBySourceToDestination(selectCity(source), selectCity(destination));
+                    Reservation.Features().cancelSeat();
+                    break;
+                }
+
+            }
+        }
+
+    }
+    public static void displayAdminMenu()
+    {
+        System.out.println("Enter 0 to Display All Flights");
+        System.out.println("Enter 1 for Adding Flight");
+        System.out.println("Enter 2 for Cancelling Flight");
+        System.out.println("Enter 3 for Searching Flight");
+        System.out.println("Enter 4 to Exit");
+    }
+    public static void displayPassengerMenu()
+    {
+        System.out.println("Enter 1 to Search Flight");
+        System.out.println("Enter 2 to Book seat");
+        System.out.println("Enter 3 to Cancel seat");
+    }
+    public static Cities selectCity(String city)
+    {
+        Cities c= null;
+        city = city.toUpperCase();
+        for (Cities ct: Cities.values()) {
+            if (city.equals(ct.name()))
+            {
+                c = ct;
+            }
+        }
+        return c;
+    }
+    public static Month selectMonth(String mon)
+    {
+        Month m= null;
+        mon = mon.toUpperCase();
+        for (Month mn: Month.values()) {
+            if (mon.equals(mn.name()))
+            {
+                m = mn;
+            }
+        }
+        return m;
     }
 }

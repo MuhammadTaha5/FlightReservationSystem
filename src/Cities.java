@@ -1,5 +1,5 @@
 public enum Cities {
-    LAHORE("PAKISTAN"), KARACHI("PAKISTAN"), CHENNAI("INDIA"), MUMBAI("INDIA"), DUBAI("UAE"), ABU_DHABI("UAE");
+    LAHORE("PAKISTAN"), KARACHI("PAKISTAN"), CHENNAI("INDIA"), MUMBAI("INDIA"), DUBAI("UAE"), ABUDHABI("UAE");
     private String country;
     Cities(String country)
     {

@@ -1,6 +1,7 @@
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Flight
@@ -11,17 +12,17 @@ public class Flight
     Passenger[] passengers;
     private Cities source;
     private Cities destination;
-    private Date departureDate;
+    private LocalDate departureDate;
     private LocalDate arrivalDate;
-    private Time departureTime;
-    private Time arrivalTime;
+    private LocalTime departureTime;
+    private LocalTime arrivalTime;
     private boolean[] seatsAvailable;
     private double economyFare;
     private double businessFare;
 
     public Flight(String flightNumber, Cities source,
-                  Cities destination, Date departureDate,
-                  Time departureTime,Date arrivalDate, Time arrivalTime,
+                  Cities destination, LocalDate departureDate,
+                  LocalTime departureTime,LocalDate arrivalDate, LocalTime arrivalTime,
                   int seats, double economyFare,
                   double businessFare)
     {
@@ -64,27 +65,27 @@ public class Flight
         this.destination = destination;
     }
 
-    public Date getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Time getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Time departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
-    public Time getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -139,58 +140,97 @@ public class Flight
         }
         return result;
     }
-    public boolean bookSeat(ArrayList <Flight> flightsForPassenger)
+    public boolean bookSeat()
     {
         boolean result = false;
-        System.out.print("Which Flight You Want to Select: ");
-        String flNum = input.next();
-        for (int i = 0; i < flightsForPassenger.size(); i++) {
-            if (flNum.equals(flightsForPassenger.get(i).getFlightNumber()))
+        System.out.println("Enter Passenger Details");
+        String temp = input.nextLine();
+        System.out.print("Enter Name: ");
+        String name = input.nextLine();
+        System.out.print("Enter Phone Number: ");
+        String ph = input.nextLine();
+        System.out.print("Enter Email: ");
+        String email = input.nextLine();
+        System.out.print("Enter Number of Seats: ");
+        int numberOfSeats = input.nextInt();
+        while (!checkSeatAvailable(numberOfSeats))
+        {
+            System.out.println("Seats not Available");
+            System.out.print("Enter Less Number of Seats Again: ");
+            numberOfSeats = input.nextInt();
+        }
+        if (checkSeatAvailable(numberOfSeats))
+        {
+            int seats=0;
+            for (int j = 0; j < seatsAvailable.length; j++)
             {
-                System.out.println("Enter Passenger Details");
-                String temp = input.nextLine();
-                System.out.print("Enter Name: ");
-                String name = input.nextLine();
-                System.out.print("Enter Phone Number: ");
-                String ph = input.nextLine();
-                System.out.print("Enter Email: ");
-                String email = input.nextLine();
-
-                System.out.print("Enter Number of Seats: ");
-                int numberOfSeats = input.nextInt();
-
-                while (!checkSeatAvailable(numberOfSeats))
+                if(!seatsAvailable[j])
                 {
-                    System.out.println("Seats not Available");
-                    System.out.print("Enter Less Number of Seats Again: ");
-                    numberOfSeats = input.nextInt();
+                    if (seats<numberOfSeats)
+                    {
+                        seatsAvailable[j]=true;
+                        seats++;
+                        passengers[j] = new Passenger(name, ph, email);
+                        result = true;
+                        System.out.println("Seats Booked.");
+                    }
+                } else if (seats>numberOfSeats)
+                {
+                    break;
                 }
-                if (checkSeatAvailable(numberOfSeats))
+
+            }
+        }
+
+        return result;
+    }
+    public ArrayList<Passenger> displaySeats(Passenger pass)
+    {
+        ArrayList<Passenger>seats = new ArrayList<>();
+        System.out.print("Seats : ");
+        for (int i = 0; i < passengers.length; i++) {
+            if (pass.getEmail().equals(passengers[i].getEmail()))
+            {
+                System.out.printf("%-3s", i+1);
+                seats.add(passengers[i]);
+
+            }
+        }
+        return seats;
+    }
+    public void cancelSeat()
+    {
+        String name, phNumber = null, email;
+        System.out.print("Enter Name: ");
+        name = input.nextLine();
+        System.out.print("Email: ");
+        email = input.next();
+        Passenger pass = new Passenger(name, phNumber, email);
+        String ch;
+        int temp;
+        ArrayList <Passenger> seats = displaySeats(pass);
+        if (seats.size()>1)
+        {
+            System.out.print("\nDo You Want to cancel All Seats: ");
+            ch = input.next();
+            ch = ch.toUpperCase();
+            if (ch.equals("ALL")) {
+                for(int i=0; i< passengers.length; i++)
                 {
-                    int seats=0;
-                    for (int j = 0; j < seatsAvailable.length; j++) {
-                        if(!seatsAvailable[j])
-                        {
-                            if (seats<numberOfSeats)
-                            {
-                                seatsAvailable[j]=true;
-                                seats++;
-                                passengers[j] = new Passenger(name, ph, email);
-                                result = true;
-                                System.out.println("Seats Booked.");
-
-                            }
-                        } else if (seats>numberOfSeats) {
-                            break;
-
-                        }
-
+                    if (pass.equals(passengers[i]))
+                    {
+                        passengers[i] = null;
+                        seatsAvailable[i] = true;
                     }
                 }
+                System.out.println("All Seats Cancelled");
             }
-
+            else if (ch.equals("NO")){
+                temp = input.nextInt();
+                passengers[temp-1]= null;
+                System.out.println("Seats cancelled");
+            }
         }
-        return result;
     }
     public ArrayList<Passenger> displaySeats(Passenger pass)
     {
